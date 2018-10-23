@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Bouncing Box</title>
+	<script src="jquery.min.js"></script>
+
+<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+	<!-- BEGIN CSS -->
+	<style>
+		/* TODO 1 */
+		[class="box"] {
+			display: box;
+			position: absolute;
+			width: 320px;
+			height: 260px;
+			top: 100px;
+			left: 0px;
+			background-image: url("https://ubisafe.org/images/aliene-clipart-alien-spaceship-5.png");
+			font-size: 100%;
+			text-align: center;
+		 
+		}
+		body {
+   background-image: url("https://img.purch.com/h/1000/aHR0cDovL3d3dy5zcGFjZS5jb20vaW1hZ2VzL2kvMDAwLzA3OS82OTkvb3JpZ2luYWwvYW5kcm9tZWRhLWdhbGF4eS10cmlvLmpwZw==");
+   background-color: #cccccc;
+   background-size: 1500px 1000px;
+   
+}
+	</style>
+	
+
+</head>
+<body class="board">
+	<!-- HTML for the box -->
+	<div class="box">?</div>
+
+	<!-- BEGIN JAVASCRIPT -->
+	<script>
+		(function(){
+			'use strict';
+			/* global */
+
+			// Variable declarations
+			var box;
+			var boardWidth;
+			var update;
+			var handleBoxClick;
+
+			// jQuery stuff setup for you
+			box = $('.box');
+			boardWidth = $('.board').width();
+
+			// TODO 2
+              var position;       // reference for the x-coordinate of our box
+              var points;         // reference for the points displayed on the box
+              var speed;          // reference for how fast the box moves
+			  var direction;
+			  var boardHeight = $(window).height();
+			  
+              position = 0;
+              points = 0;
+              speed = 10;
+              direction = 1;
+              
+              box.css('left', position);      // changes the 'left' css property of the box to value of var position
+              box.text(points);               // changes the text of the box to display the value of var points
+		      
+              
+		   	var update = function() {
+				// TODO 3 / 6 / 7 / 8
+				 position = position + (speed * direction);    // increase position on every update
+                 console.log("new position:" + position);
+				 box.css('left', position);      // set the 'left' CSS property of the box to the new value of position
+				 if(position > boardWidth) {
+                 direction = -1;
+				 }
+				 if (position < 1) {
+				 direction= 1;
+				 }
+              
+			};
+
+
+			
+			var handleBoxClick = function() {
+				// TODO 4 / 5
+				points = points + 1;  // increase the point total
+            box.text(points);     // update the new points total displayed by the box
+            position = 0;         // reset the position of the box to 0
+            speed = speed + 3;    // increase the speed of the box on every click
+			};
+
+			//this calls update every 50 milliseconds
+			setInterval(update, 50);
+			// this calls the handle handleBoxClick function every time the box is clicked on
+			box.on('click', handleBoxClick);
+			
+		})();
+	</script>
+</body>
+</html>
